@@ -29,7 +29,7 @@ if (zValue === 0.90) {
     const lowerBound = mean -  stdError;
     const upperBound = mean + stdError;
     setConfidenceInterval(
-      `Intervalo de Confiança: ${lowerBound} - ${upperBound} - Erro: ${stdError}`
+      `Intervalo de Confiança: ${lowerBound.toFixed(2)} - ${upperBound.toFixed(2)} - Erro: ${stdError.toFixed(2)}`
     );
   };
 
@@ -94,8 +94,7 @@ if (zValue === 0.90) {
     const lowerBound = p - stdError;
     const upperBound = p + stdError;
     setConfidenceInterval(
-      `Intervalo de Confiança: ${lowerBound} - ${upperBound} - Erro: ${stdError}`
-    );
+      `Intervalo de Confiança: ${lowerBound.toFixed(2)} - ${upperBound.toFixed(2)} - Erro: ${stdError.toFixed(2)}`);
   };
 
   function calculaICProporcao() {
@@ -141,15 +140,15 @@ if (zValue === 0.90) {
   } else if (zValue === 0.99) {
       z = 2.575;
   }
-    const tm = (z * stdDev / sampleSize) * (z * stdDev / sampleSize);
+    const tm = Math.ceil((z * stdDev / sampleSize) * (z * stdDev / sampleSize));
     
-    setMarginOfError(`Margem de Erro: ${tm}`);
+    setMarginOfError(`Tamanho da amostra: ${tm}`);
   };
 
   function calculaTmMedia() {
     return (
       <>
-        <h2>Calculadora de TM (Média)</h2>
+        <h2>Calculadora de Amostra (Média)</h2>
         <div>
 
         <input
@@ -196,14 +195,14 @@ if (zValue === 0.90) {
     } else if (zValue === 0.99) {
         z = 2.575;
     }
-  const tm = (z * z) * p * (1 - p) / (sampleSize * sampleSize);
+  const tm = Math.ceil((z * z) * p * (1 - p) / (sampleSize * sampleSize));
     setMarginOfError(`Tamanho da amostra: ${tm}`);
   };
 
   function calculaTmProporcao() {
     return (
       <>
-        <h2>Calculadora de TM (Proporção)</h2>
+        <h2>Calculadora de Amostra (Proporção)</h2>
         <div class="inputCalculadoraTmProporcao">
           <div>
             <input
@@ -271,14 +270,14 @@ if (zValue === 0.90) {
                 type="radio"
                 onClick={() => setSelectedOption("TM (Média)")}
               />
-              <label htmlFor="TM (Média)">TM (Média)</label>
+              <label htmlFor="TM (Média)">Amostra (Média)</label>
               <input
                 name="value-radio"
                 id="TM (Proporção)"
                 type="radio"
                 onClick={() => setSelectedOption("TM (Proporção)")}
               />
-              <label htmlFor="TM (Proporção)">TM (Proporção)</label>
+              <label htmlFor="TM (Proporção)">Amostra (Proporção)</label>
             </div>
           </div>
           {selectedOption === "IC (Média)" && calculaICMedia()}
